@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLanguage } from '../contexts/LanguageContext';
+import { useLanguage } from '../../context/LanguageContext';
 import { GiPeaceDove } from 'react-icons/gi';
 import { motion } from 'framer-motion';
 

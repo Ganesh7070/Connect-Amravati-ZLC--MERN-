@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaUser, FaLock, FaArrowRight, FaBell, FaShieldAlt, FaUserTie } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import { useLanguage } from '../contexts/LanguageContext';
+import { useLanguage } from "../../context/LanguageContext";
+import { loginUser } from "../../services/authService";
 
 const LoginForm = ({ showToast }) => {
   const { t } = useLanguage();
@@ -11,9 +12,9 @@ const LoginForm = ({ showToast }) => {
   const [loading, setLoading] = useState(false);
   const [focusedField, setFocusedField] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!formData.username || !formData.password) {
       showToast(t('login.error_required'), 'error');
       return;
@@ -21,23 +22,73 @@ const LoginForm = ({ showToast }) => {
 
     setLoading(true);
 
-    // Mock backend authentication logic
-    setTimeout(() => {
-      if (
-        (formData.username === 'dist_admin' && formData.password === 'password123') ||
-        (formData.username === 'sdo_user' && formData.password === 'password123')
-      ) {
-        const role = formData.username === 'dist_admin' ? 'collector' : 'sdo';
-        showToast(t('login.success'), 'success');
-        setLoading(false);
-        navigate('/dashboard', { state: { role, username: formData.username } });
-      } else {
-        showToast(t('login.error_invalid'), 'error');
-        setLoading(false);
-      }
-    }, 1500);
-  };
+    // ✅ Hardcoded login for frontend team
+    if (formData.username === "adminn" && formData.password === "admin1233") {
 
+      setTimeout(() => {
+        const role = "collector";
+
+        localStorage.setItem("role", role);
+
+        showToast(t('login.success'), 'success');
+
+        setLoading(false);
+
+        navigate("/dashboard", {
+          state: {
+            role: role,
+            username: formData.username
+          }
+        });
+
+      }, 1000);
+
+      return; // stop API call
+    }
+
+    // ✅ Backend login
+    try {
+      const data = await loginUser(formData.username, formData.password);
+
+      console.log("API Response:", data);
+
+      setTimeout(() => {
+
+        if (data.message === "Login Successful") {
+
+          const role =
+            data.role === "ADMIN"
+              ? "collector"
+              : data.role === "SDO"
+                ? "sdo"
+                : "user";
+
+          localStorage.setItem("role", role);
+
+          showToast(t('login.success'), 'success');
+
+          setLoading(false);
+
+          navigate("/dashboard", {
+            state: {
+              role: role,
+              username: formData.username
+            }
+          });
+
+        } else {
+          showToast(t('login.error_invalid'), 'error');
+          setLoading(false);
+        }
+
+      }, 1500);
+
+    } catch (error) {
+      console.error("Login Error:", error.response || error.message);
+      showToast(t('login.error_invalid'), 'error');
+      setLoading(false);
+    }
+  };
   return (
     <motion.div
       initial={{ x: 50, opacity: 0 }}
@@ -55,7 +106,7 @@ const LoginForm = ({ showToast }) => {
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          
+
           {/* Username Field */}
           <div className="relative">
             <FaUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-600 text-xl z-10" />
@@ -123,14 +174,14 @@ const LoginForm = ({ showToast }) => {
               {t('demo.title')}
             </p>
             <div className="grid grid-cols-2 gap-3">
-              <div 
+              <div
                 className="bg-white p-2 rounded-lg shadow-sm hover:shadow-md transition-all cursor-pointer"
                 onClick={() => setFormData({ username: 'dist_admin', password: 'password123' })}
               >
                 <span className="text-xs text-blue-700 block">Collector</span>
                 <span className="text-xs font-mono">dist_admin / password</span>
               </div>
-              <div 
+              <div
                 className="bg-white p-2 rounded-lg shadow-sm hover:shadow-md transition-all cursor-pointer"
                 onClick={() => setFormData({ username: 'sdo_user', password: 'password123' })}
               >

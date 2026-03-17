@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { GiIndiaGate } from 'react-icons/gi';
-import { useLanguage } from '../contexts/LanguageContext';
+import { useLanguage } from "../../context/LanguageContext";
 
 const CulturalSection = () => {
   const { t } = useLanguage();
@@ -66,13 +66,11 @@ const CulturalSection = () => {
             <motion.div
               key={item}
               whileHover={{ scale: 1.2, rotate: 360 }}
-              className={`h-12 w-12 rounded-full flex items-center justify-center shadow-lg cursor-pointer ${
-                index === 0 ? 'bg-orange-500' : index === 1 ? 'bg-white' : 'bg-green-500'
-              }`}
+              className={`h-12 w-12 rounded-full flex items-center justify-center shadow-lg cursor-pointer ${index === 0 ? 'bg-orange-500' : index === 1 ? 'bg-white' : 'bg-green-500'
+                }`}
             >
-              <span className={`font-bold text-xl ${
-                index === 1 ? 'text-blue-900' : 'text-white'
-              }`}>
+              <span className={`font-bold text-xl ${index === 1 ? 'text-blue-900' : 'text-white'
+                }`}>
                 {t(`cultural.${item}`)}
               </span>
             </motion.div>

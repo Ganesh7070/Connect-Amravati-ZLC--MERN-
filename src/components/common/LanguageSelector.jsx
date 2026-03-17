@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLanguage } from '../contexts/LanguageContext';
+import { useLanguage } from "../../context/LanguageContext";
 import { FaLanguage } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -43,9 +43,8 @@ const LanguageSelector = () => {
                   setLanguage(lang.code);
                   setIsOpen(false);
                 }}
-                className={`w-full px-4 py-3 text-left flex items-center space-x-3 ${
-                  language === lang.code ? 'bg-blue-50 text-blue-700' : ''
-                }`}
+                className={`w-full px-4 py-3 text-left flex items-center space-x-3 ${language === lang.code ? 'bg-blue-50 text-blue-700' : ''
+                  }`}
               >
                 <span className="text-xl">{lang.flag}</span>
                 <span>{lang.name}</span>

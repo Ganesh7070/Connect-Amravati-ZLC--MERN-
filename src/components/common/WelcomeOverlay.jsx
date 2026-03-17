@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GiIndiaGate } from 'react-icons/gi';
-import { useLanguage } from '../contexts/LanguageContext';
+import { useLanguage } from "../../context/LanguageContext";
 
 const WelcomeOverlay = () => {
   const { t } = useLanguage();

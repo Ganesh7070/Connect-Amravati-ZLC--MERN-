@@ -1,10 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import Header from './Header';
-import Footer from './Footer';
-import AnimatedBackground from './AnimatedBackground';
-import WelcomeOverlay from './WelcomeOverlay';
-import CulturalSection from './CulturalSection';
+import Header from "../../components/layout/Header";
+import Footer from "../../components/layout/Footer";
+import AnimatedBackground from '../../components/common/AnimatedBackground';
+import WelcomeOverlay from '../../components/common/WelcomeOverlay';
+import CulturalSection from '../../components/common/CulturalSection';
 import LoginForm from './LoginForm';
 
 const LoginPage = ({ showToast }) => {

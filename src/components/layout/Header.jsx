@@ -1,9 +1,9 @@
 import React from 'react';
-import { useLanguage } from '../contexts/LanguageContext';
+import { useLanguage } from '../../context/LanguageContext';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { GiIndiaGate } from 'react-icons/gi';
 import { motion } from 'framer-motion';
-import LanguageSelector from './LanguageSelector';
+import LanguageSelector from '../common/LanguageSelector';
 
 const Header = () => {
   const { t } = useLanguage();

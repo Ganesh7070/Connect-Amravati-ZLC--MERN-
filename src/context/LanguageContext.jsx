@@ -2,9 +2,9 @@ import React, { createContext, useState, useContext } from 'react';
 
 const LanguageContext = createContext();
 
-import en from '../translations/en.json';
-import mr from '../translations/mr.json';
-import hi from '../translations/hi.json';
+import en from '../assets/translations/en.json';
+import mr from '../assets/translations/mr.json';
+import hi from '../assets/translations/hi.json';
 
 const translations = {
   en,

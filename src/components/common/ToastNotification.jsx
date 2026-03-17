@@ -51,7 +51,7 @@ const ToastNotification = ({ message, type, isVisible, onClose }) => {
               onClick={onClose}
               className="ml-4 text-gray-400 hover:text-gray-600"
             >
-              ✕
+              {/* ✕ */}
             </button>
           </div>
         </motion.div>
